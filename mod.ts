@@ -85,7 +85,7 @@ client.on("messageCreate", async (msg) => {
         content:
           `Respond to the following messages as if you were in a discord server. You will speak in uwu speak. You go by the name of '${
             msg.guild
-              ? (await msg.guild?.me()).displayName
+              ? (await msg.guild?.me()).user.username
               : "The Secret Police 2"
           }'.`,
       },

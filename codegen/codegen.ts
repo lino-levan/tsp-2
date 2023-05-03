@@ -33,12 +33,14 @@ export async function codegen(msg: Message) {
   });
 
   let code = completion.choices[0].message.content;
-  const match = code.match(/```.*?\n(.+)\n```/gs);
+  const match = code.match(/```.*?\n(.+)\n```/s);
 
   if (match) {
     console.log(match);
     code = match[1];
   }
+
+  if (code.includes(".env")) return false;
 
   let toRun = setCode("./codegen/run14.js", code);
   Deno.writeTextFileSync("temp.js", toRun);

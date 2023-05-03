@@ -32,6 +32,8 @@ client.on("messageCreate", async (msg) => {
 
   if (!relevant) return;
 
+  await msg.addReaction("👍");
+
   if (await isCommand(msg)) {
     if (await codegen(msg)) {
       const completion = await openAI.createChatCompletion({
@@ -103,7 +105,7 @@ client.on("messageCreate", async (msg) => {
       ...messages.map((message) => ({
         role: msg.author.id === client.user?.id ? "assistant" : "user",
         content: message.content,
-      })),
+      })).reverse(),
     ],
     maxTokens: 200,
   });
